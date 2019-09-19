@@ -1,3 +1,13 @@
+Riven mods to build:
+Azima
+braton
+deth machine rifle
+dex dakra
+furax
+mutalist quanta
+
+NEW CONTENT
+
 Hello, it's me -Adele
 Foo lemon-barz
 
@@ -12,3 +22,14 @@ I like howling at the moon
 Kung foo fighting
 Nani
 Doctor Seuss
+
+
+WARFRAMES
+-gauss
+-nidus
+-nova
+-equinox
+-ember
+-frost
+-wisp
+-wukong
