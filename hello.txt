@@ -14,3 +14,14 @@ Foo lemon-barz
 Kung foo fighting
 Nani
 Doctor Seuss
+
+
+WARFRAMES
+-gauss
+-nidus
+-nova
+-equinox
+-ember
+-frost
+-wisp
+-wukong
