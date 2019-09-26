@@ -12,6 +12,7 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+<<<<<<< HEAD
 
 		<!-- Specifies where the properties file is located -->
 		<log4j.configuration>log4j.properties</log4j.configuration>
@@ -27,11 +28,17 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+=======
+	</properties>
+
+	<dependencies>
+>>>>>>> f2ebc0c45b220120d13081f4c7dd88e7a842f5ae
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.2.5</version>
 		</dependency>
+<<<<<<< HEAD
 
 		<!-- Log4j -->
 		<dependency>
@@ -40,6 +47,14 @@
 			<version>1.2.17</version>
 		</dependency>
 
+=======
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+>>>>>>> f2ebc0c45b220120d13081f4c7dd88e7a842f5ae
 	</dependencies>
 	<build>
 		<finalName>Project01</finalName>
