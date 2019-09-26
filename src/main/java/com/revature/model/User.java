@@ -15,6 +15,7 @@ public class User {
 
 	public User(long id, String firstName, String lastName, boolean isAdmin, String email, String password,
 			String address, String address2, String phoneNumber, String position) {
+		
 		super();
 		this.id = id;
 		this.firstName = firstName;
