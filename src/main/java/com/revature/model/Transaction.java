@@ -67,5 +67,11 @@ public class Transaction {
 	public void setManagerName(String managerName) {
 		this.managerName = managerName;
 	}
+	
+	@Override
+	public String toString() {
+		return "Transaction [id=" + id + ", userId=" + userId + ", status=" + status + ", managerName=" + managerName
+				+ ", transDate=" + transDate + ", receiptImg=" + receiptImg + ", comment=" + comment + "]";
+	}
 
 }

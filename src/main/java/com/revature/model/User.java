@@ -2,6 +2,7 @@ package com.revature.model;
 
 public class User {
 
+
 	private long id;
 	private String firstName;
 	private String lastName;
@@ -107,5 +108,12 @@ public class User {
 
 	public void setPosition(String position) {
 		this.position = position;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", isAdmin=" + isAdmin
+				+ ", email=" + email + ", password=" + password + ", address=" + address + ", address2=" + address2
+				+ ", phoneNumber=" + phoneNumber + ", position=" + position + "]";
 	}
 }

@@ -28,7 +28,7 @@ public class UserDAOImplPJDBC implements UserDAO {
 		try {
 			conn = ConnectionUtil.getConnection();
 			statement = conn.createStatement();
-			resultSet = statement.executeQuery("SELECT * FROM user");
+			resultSet = statement.executeQuery("SELECT * FROM \"user\";");
 			while (resultSet.next()) {
 				users.add(createUserFromRS(resultSet));
 			}

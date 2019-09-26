@@ -11,6 +11,12 @@ public class ConnectionUtil {
 	private static Connection conn = null;
 
 	public static Connection getConnection() {
+		
+		try {
+			Class.forName("org.postgresql.driver");
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
 
 		try {
 			Properties props = new Properties();
