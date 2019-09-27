@@ -1,6 +1,7 @@
 package com.revature.repositories;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,8 +15,26 @@ import com.revature.utils.StreamCloser;
 public class UserDAOImplPJDBC implements UserDAO {
 
 	public User getUser(long id) {
+		
+		User u = null;
+		
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String query = "SELECT * FROM \"user\" WHERE id = ?;";
+			try (PreparedStatement stmt = conn.prepareStatement(query)) {
+				stmt.setLong(1, id);
+				if (stmt.execute()) {
+					try (ResultSet rs = stmt.getResultSet()) {
+						if (rs.next()) {
+							u = createUserFromRS(rs);
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-		return null;
+		return u;
 	}
 
 	public List<User> getUsers() {
@@ -56,6 +75,71 @@ public class UserDAOImplPJDBC implements UserDAO {
 				resultSet.getString("address_2"),
 				resultSet.getString("phone_number"),
 				resultSet.getString("position"));
+	}
+
+	@Override
+	public boolean createUser(User u) {
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		String query = "INSERT into \"user\" VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		
+		try {
+			conn = ConnectionUtil.getConnection();
+			stmt = conn.prepareStatement(query);
+			stmt.setString(1, u.getFirstName());
+			stmt.setString(2, u.getLastName());
+			stmt.setBoolean(3, u.isAdmin());
+			stmt.setString(4, u.getEmail());
+			stmt.setString(5, u.getPassword());
+			stmt.setString(6, u.getAddress());
+			stmt.setString(7, u.getAddress2());
+			stmt.setString(8, u.getPhoneNumber());
+			stmt.setString(9, u.getPosition());
+			stmt.execute();
+		}catch (SQLException e) { 
+			e.printStackTrace();
+			return false;
+		}finally {
+			StreamCloser.close(conn);
+			StreamCloser.close(stmt);
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public boolean updateUser(User u) {
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		String query = "UPDATE \"user\" SET firstName = ?, lastName = ?, isAdmin = ?, email = ?, password = ?, "
+				+ "address = ?, address2 = ?, phoneNumber = ?, position = ?;";
+		
+		try {
+			conn = ConnectionUtil.getConnection();
+			stmt = conn.prepareStatement(query);
+			stmt.setString(1, u.getFirstName());
+			stmt.setString(2, u.getLastName());
+			stmt.setBoolean(3, u.isAdmin());
+			stmt.setString(4, u.getEmail());
+			stmt.setString(5, u.getPassword());
+			stmt.setString(6, u.getAddress());
+			stmt.setString(7, u.getAddress2());
+			stmt.setString(8, u.getPhoneNumber());
+			stmt.setString(9, u.getPosition());
+			stmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}finally {
+			StreamCloser.close(conn);
+			StreamCloser.close(stmt);
+		}
+		
+		return true;
 	}
 
 }
