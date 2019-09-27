@@ -25,7 +25,7 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 	
 	List<Transaction> trs = new ArrayList<Transaction>();
 	
-	Try{
+	try{
 		conn = ConnectionUtil.getConnection();
 		stmt = conn.createStatement();
 		rs = stmt.executeQuery("SELECT * FROM Transaction;");
@@ -33,7 +33,7 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 		while (rs.next()) {
 			trs.add(createTransactionFromRS(rs));
 		}
-	}catch (SQLException e) {
+	}catch(SQLException e) {
 		e.printStackTrace();
 	}
 		
@@ -44,7 +44,11 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 		
 		return new Transaction(
 				rs.getLong("id"),
-				rs.getString("firstName"));
+				rs.getLong("userId"),
+				rs.getString("status"),
+				rs.getString("managerName"),
+				rs.getString("transDate"),
+				rs.get("receiptImg"));
 	}
 
 }
