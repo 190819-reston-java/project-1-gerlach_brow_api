@@ -115,8 +115,8 @@ public class UserDAOImplPJDBC implements UserDAO {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
-		String query = "UPDATE \"user\" SET firstName = ?, lastName = ?, isAdmin = ?, email = ?, password = ?, "
-				+ "address = ?, address2 = ?, phoneNumber = ?, position = ?;";
+		String query = "UPDATE \"user\" SET first_name = ?, last_name = ?, is_admin = ?, email = ?, password = ?, "
+				+ "address = ?, address_2 = ?, phone_number = ?, position = ?;";
 		
 		try {
 			conn = ConnectionUtil.getConnection();
