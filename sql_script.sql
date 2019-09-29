@@ -23,6 +23,12 @@ CREATE TABLE Transactions (
 	"comment" varchar (250)
 );
 
+CREATE TABLE Trimg (
+	id serial PRIMARY KEY,
+	user_id int not null,
+	receipt_img bytea
+);
+
 DROP TABLE "user";
 DROP TABLE Transactions;
 
@@ -58,3 +64,4 @@ VALUES ('5', 'resolved', 'Jiggy', NULL, 'Donuts for morning meeting 08-12-2019',
 
 SELECT * FROM Transactions;
 SELECT * FROM "user";
+select * from trimg;
