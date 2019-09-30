@@ -7,7 +7,7 @@
   
   <servlet>
   	<servlet-name>Users</servlet-name>
-  	<servlet-class>com.revature.servlets.UserServlets</servlet-class>
+  	<servlet-class>com.revature.servlets.FrontController</servlet-class>
   </servlet>
   
   <servlet-mapping>

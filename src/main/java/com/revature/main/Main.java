@@ -13,5 +13,8 @@ public class Main {
 		UserDAO userDAO = new UserDAOImplPJDBC();
 		System.out.println(userDAO.getUsers());
 		
+		TransactionsDAO t = new TransactionsDAOImplPJDBC();
+		System.out.println(t.getTransactions(1));
+		
 	}
 }

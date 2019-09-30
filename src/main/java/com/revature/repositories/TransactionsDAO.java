@@ -9,7 +9,6 @@ import com.revature.model.Transaction;
 
 public interface TransactionsDAO {
 
-	Transaction getTransaction(long id);
 	void addImage(byte [] img, int id);
 	byte [] getImage(int id);
 	
@@ -20,4 +19,5 @@ public interface TransactionsDAO {
 //	File bytesToFile(byte[] imgByte) throws FileNotFoundException;
 	
 	List<Transaction> getTransactions();
+	List<Transaction> getTransactions(long userId);
 }

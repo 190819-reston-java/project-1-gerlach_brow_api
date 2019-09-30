@@ -49,7 +49,7 @@ VALUES ('1', 'pending', NULL, NULL, 'Charging for emotional damages', current_ti
 INSERT INTO transactions (user_id, status, manager_name, imgUrl, "comment", trans_date)
 VALUES ('1', 'resolved', 'Leslie', NULL, 'Someone stole my stapler', current_timestamp);
 INSERT INTO transactions (user_id, status, manager_name, imgUrl, "comment", trans_date)
-VALUES ('1', 'resolved', 'Leslie', NULL, '');
+VALUES ('1', 'resolved', 'Leslie', NULL, '', current_timestamp);
 INSERT INTO transactions (user_id, status, manager_name, imgUrl, "comment", trans_date)
 VALUES ('3', 'resolved', 'Jiggy', NULL, 'Charging for emotional damages', current_timestamp);
 INSERT INTO transactions (user_id, status, manager_name, imgUrl, "comment", trans_date)

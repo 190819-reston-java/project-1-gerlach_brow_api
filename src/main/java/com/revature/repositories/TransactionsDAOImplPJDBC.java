@@ -23,18 +23,19 @@ import com.revature.utils.StreamCloser;
 
 public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 
-	public Transaction getTransaction(long id) {
+	@Override
+	public List<Transaction> getTransactions(long userId) {
 		
-		Transaction trs = null;
+		List<Transaction> trs = new ArrayList<Transaction>();
 		
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			String query = "SELECT * FROM Transaction WHERE id = ?;";
+			String query = "SELECT * FROM Transactions WHERE user_id = ?;";
 			try (PreparedStatement stmt = conn.prepareStatement(query)) {
-				stmt.setLong(1, id);
+				stmt.setLong(1, userId);
 				if (stmt.execute()) {
 					try (ResultSet rs = stmt.getResultSet()) {
-						if (rs.next()) {
-							trs = createTransactionFromRS(rs);
+						while (rs.next()) {
+							trs.add(createTransactionFromRS(rs));
 						}
 					}
 				}
@@ -66,17 +67,17 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 		e.printStackTrace();
 	}
 		
-		return null;
+		return trs;
 	}
 
 	private Transaction createTransactionFromRS(ResultSet rs) throws SQLException {
 		
 		return new Transaction(
 				rs.getLong("id"),
-				rs.getLong("userId"),
+				rs.getLong("user_id"),
 				rs.getString("status"),
-				rs.getString("managerName"),
-				rs.getString("transDate"),
+				rs.getString("manager_name"),
+				rs.getString("trans_date"),
 				rs.getString("imgUrl"),
 				rs.getString("comment"));
 	}
