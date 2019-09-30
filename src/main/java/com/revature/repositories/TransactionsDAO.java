@@ -13,6 +13,9 @@ public interface TransactionsDAO {
 	void addImage(byte [] img, int id);
 	byte [] getImage(int id);
 	
+	boolean createTransaction(Transaction trs, long userid);
+	boolean updateTransaction(Transaction trs);
+	
 //	byte [] fileToBytes(File file);
 //	File bytesToFile(byte[] imgByte) throws FileNotFoundException;
 	

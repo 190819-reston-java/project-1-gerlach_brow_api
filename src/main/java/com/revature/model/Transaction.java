@@ -9,8 +9,22 @@ public class Transaction {
 	private String status;
 	private String managerName;
 	private String transDate;
-	private File receiptImg;
+	private String imgUrl;
 	private String comment;
+	
+	
+
+	public Transaction(long id, long userId, String status, String managerName, String transDate, String imgUrl,
+			String comment) {
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.status = status;
+		this.managerName = managerName;
+		this.transDate = transDate;
+		this.imgUrl = imgUrl;
+		this.comment = comment;
+	}
 
 	public long getId() {
 		return id;
@@ -44,12 +58,12 @@ public class Transaction {
 		this.transDate = transDate;
 	}
 
-	public File getReceiptImg() {
-		return receiptImg;
+	public String getImgUrl() {
+		return imgUrl;
 	}
 
-	public void setReceiptImg(File receiptImg) {
-		this.receiptImg = receiptImg;
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 
 	public String getComment() {
@@ -71,7 +85,7 @@ public class Transaction {
 	@Override
 	public String toString() {
 		return "Transaction [id=" + id + ", userId=" + userId + ", status=" + status + ", managerName=" + managerName
-				+ ", transDate=" + transDate + ", receiptImg=" + receiptImg + ", comment=" + comment + "]";
+				+ ", transDate=" + transDate + ", imgUrl=" + imgUrl + ", comment=" + comment + "]";
 	}
 
 }

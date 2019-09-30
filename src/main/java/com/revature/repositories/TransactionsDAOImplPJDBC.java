@@ -25,7 +25,25 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 
 	public Transaction getTransaction(long id) {
 		
-		return null;
+		Transaction trs = null;
+		
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String query = "SELECT * FROM Transaction WHERE id = ?;";
+			try (PreparedStatement stmt = conn.prepareStatement(query)) {
+				stmt.setLong(1, id);
+				if (stmt.execute()) {
+					try (ResultSet rs = stmt.getResultSet()) {
+						if (rs.next()) {
+							trs = createTransactionFromRS(rs);
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return trs;
 	}
 
 	public List<Transaction> getTransactions() {
@@ -51,16 +69,16 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 		return null;
 	}
 
-	private Transaction createTransactionFromRS(ResultSet rs) {
+	private Transaction createTransactionFromRS(ResultSet rs) throws SQLException {
 		
-		return null;
-//		return new Transaction(
-//				rs.getLong("id"),
-//				rs.getLong("userId"),
-//				rs.getString("status"),
-//				rs.getString("managerName"),
-//				rs.getString("transDate"),
-//				rs.get("receiptImg"));
+		return new Transaction(
+				rs.getLong("id"),
+				rs.getLong("userId"),
+				rs.getString("status"),
+				rs.getString("managerName"),
+				rs.getString("transDate"),
+				rs.getString("imgUrl"),
+				rs.getString("comment"));
 	}
 	
 	public byte[] getImage(int id) {
@@ -113,6 +131,64 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 			StreamCloser.close(stmt);
 			StreamCloser.close(rs);
 		}
+	}
+
+	@Override
+	public boolean createTransaction(Transaction trs, long userid) {
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		String query = "INSERT into Transaction VALUES (DEFAULT, ?, ?, ?, ?, ?, ?);";
+		
+		try {
+			conn = ConnectionUtil.getConnection();
+			stmt = conn.prepareStatement(query);
+			stmt.setLong(1, trs.getUserId());
+			stmt.setString(2, trs.getStatus());
+			stmt.setString(3, trs.getManagerName());
+			stmt.setString(4, trs.getTransDate());
+			stmt.setString(5, trs.getImgUrl());
+			stmt.setString(6, trs.getComment());
+			stmt.execute();
+		}catch (SQLException e) { 
+			e.printStackTrace();
+			return false;
+		}finally {
+			StreamCloser.close(conn);
+			StreamCloser.close(stmt);
+		}
+		
+		return true;
+		
+	}
+
+	@Override
+	public boolean updateTransaction(Transaction trs) {
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		String query = "UPDATE Transaction SET status = ?, managerName = ?, transDate = ?, imgUrl = ?, comment = ?;";
+		
+		try {
+			conn = ConnectionUtil.getConnection();
+			stmt = conn.prepareStatement(query);
+			stmt.setString(1, trs.getStatus());
+			stmt.setString(2, trs.getManagerName());
+			stmt.setString(3, trs.getTransDate());
+			stmt.setString(4, trs.getImgUrl());
+			stmt.setString(5, trs.getComment());
+			stmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}finally {
+			StreamCloser.close(conn);
+			StreamCloser.close(stmt);
+		}
+		
+		return true;
 	}
 
 //	@Override
