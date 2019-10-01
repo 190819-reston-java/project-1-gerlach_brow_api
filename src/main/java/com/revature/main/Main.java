@@ -11,10 +11,11 @@ public class Main {
 	public static void main(String[] args) {
 	
 		UserDAO userDAO = new UserDAOImplPJDBC();
-		System.out.println(userDAO.getUsers());
-		
-		TransactionsDAO t = new TransactionsDAOImplPJDBC();
-		System.out.println(t.getTransactions(1));
+		System.out.println(userDAO.getUser("jelly@jelly.roll", "wasspord"));
+//		System.out.println(userDAO.getUsers());
+//		
+//		TransactionsDAO t = new TransactionsDAOImplPJDBC();
+//		System.out.println(t.getTransactions(1));
 		
 	}
 }

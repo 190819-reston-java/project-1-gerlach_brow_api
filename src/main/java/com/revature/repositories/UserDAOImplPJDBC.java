@@ -136,14 +136,14 @@ public class UserDAOImplPJDBC implements UserDAO {
 	}
 
 	@Override
-	public User getUser(String emial, String passsword) {
+	public User getUser(String email, String password) {
 		User u = null;
 
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			String query = "SELECT * FROM \"user\" WHERE email = ? AND password = ?;";
 			try (PreparedStatement stmt = conn.prepareStatement(query)) {
-				stmt.setString(1, emial);
-				stmt.setString(2, passsword);
+				stmt.setString(1, email);
+				stmt.setString(2, password);
 				if (stmt.execute()) {
 					try (ResultSet rs = stmt.getResultSet()) {
 						if (rs.next()) {
