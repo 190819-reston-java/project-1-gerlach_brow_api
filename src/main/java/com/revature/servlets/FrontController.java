@@ -43,7 +43,7 @@ public class FrontController extends HttpServlet {
 			uandTServices uts = new uandTServices(new TransactionsDAOImplPJDBC());
 			Cookie cookie = new Cookie("userId", Long.toString(l));
 			resp.addCookie(cookie);
-			
+			resp.sendRedirect("MockSecondServlet");
 			////// Cookie usage //////
 //			Cookie cookies[] = req.getCookies();
 //			String str = null;
