@@ -36,7 +36,6 @@ public class FrontController extends HttpServlet {
 		String a = req.getParameter("userEmail");
 		String b = req.getParameter("password");
 		User user = userDAO.getUser(a, b);
-		resp.getWriter().write("hello");
 		
 		if(user != null) {
 			
@@ -44,30 +43,10 @@ public class FrontController extends HttpServlet {
 			uandTServices uts = new uandTServices(new TransactionsDAOImplPJDBC());
 			Cookie cookie = new Cookie("userId", Long.toString(l));
 			resp.addCookie(cookie);
-			resp.sendRedirect("MockSecondServlet");
-			////// Cookie usage //////
-//			Cookie cookies[] = req.getCookies();
-//			String str = null;
-//			
-//			for(Cookie c : cookies)
-//			{
-//				if(c.getName().equals("userId")) {
-//					str = c.getValue();
-//				}
-//			}
-			
-//			resp.getWriter().write(user.toString());
-			
-			
-			//long id = user.getId();
-			//String u = req.getParameter("userId");
-//			int userInput = Integer.parseInt(u);
-//			List<Transaction> test = uts.getTransactions(userInput);
-//			
-//			for (Transaction transaction : test) {
-//				resp.getWriter().write(transaction.toString());
-//			}
-//			resp.setStatus(HttpServletResponse.SC_CREATED);
+			if(user.isAdmin() == false)
+				resp.sendRedirect("employee.html");
+			else
+				resp.sendRedirect("manager.html");
 		}
 		else {
 			resp.sendRedirect("index.html");

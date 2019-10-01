@@ -5,16 +5,16 @@
 <web-app>
 	<display-name>Archetype Created Web Application</display-name>
 	<servlet>
-		<servlet-name>Employee</servlet-name>
-		<servlet-class>com.revature.servlets.FrontController</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>Login</servlet-name>
 		<servlet-class>com.revature.servlets.FrontController</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>Mock</servlet-name>
-		<servlet-class>com.revature.servlets.MockSecondServlet</servlet-class>
+		<servlet-name>Employee</servlet-name>
+		<servlet-class>com.revature.servlets.EmployeeServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Manager</servlet-name>
+		<servlet-class>com.revature.servlets.ManagerServlet</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>
@@ -23,12 +23,12 @@
 	</servlet-mapping>
 
 	<servlet-mapping>
-		<servlet-name>Mock</servlet-name>
-		<url-pattern>/MockSecondServlet</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
 		<servlet-name>Employee</servlet-name>
 		<url-pattern>/employee</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Manager</servlet-name>
+		<url-pattern>/manager</url-pattern>
 	</servlet-mapping>
 </web-app>

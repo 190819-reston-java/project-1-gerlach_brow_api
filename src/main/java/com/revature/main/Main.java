@@ -10,8 +10,8 @@ public class Main {
 
 	public static void main(String[] args) {
 	
-		UserDAO userDAO = new UserDAOImplPJDBC();
-		System.out.println(userDAO.getUser("jelly@jelly.roll", "wasspord"));
+//		UserDAO userDAO = new UserDAOImplPJDBC();
+//		System.out.println(userDAO.getUser("jelly@jelly.roll", "wasspord"));
 //		System.out.println(userDAO.getUsers());
 //		
 //		TransactionsDAO t = new TransactionsDAOImplPJDBC();
