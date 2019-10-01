@@ -36,6 +36,7 @@ public class FrontController extends HttpServlet {
 		String a = req.getParameter("userEmail");
 		String b = req.getParameter("password");
 		User user = userDAO.getUser(a, b);
+		resp.getWriter().write("hello");
 		
 		if(user != null) {
 			
@@ -69,7 +70,8 @@ public class FrontController extends HttpServlet {
 //			resp.setStatus(HttpServletResponse.SC_CREATED);
 		}
 		else {
-			System.out.println("fail");
+			resp.sendRedirect("index.html");
+			resp.getWriter().write("Invalid username or password");
 		}
 	}
 }
