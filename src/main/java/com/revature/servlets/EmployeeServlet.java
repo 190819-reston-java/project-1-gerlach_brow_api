@@ -32,7 +32,6 @@ public class EmployeeServlet extends HttpServlet {
 		String[] splitURI = req.getRequestURI().split("/");
 		String[] tokens = Arrays.copyOfRange(splitURI, 3, splitURI.length);
 
-		System.out.println(tokens[0]);
 		switch (tokens[0]) {
 		case "view_info":
 			handleRequests(req, resp, tokens);
@@ -61,6 +60,7 @@ public class EmployeeServlet extends HttpServlet {
 		case "GET":
 			String jsonUser = om.writeValueAsString(user);
 			pw.write(jsonUser);
+			break;
 		}
 	}
 
