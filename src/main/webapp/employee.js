@@ -16,14 +16,21 @@ let resolvedDisplay = document.getElementById("resolved-display");
 let submitReimbursement = document.getElementById("sumbit-reimbursement");
 let updateUserInfo = document.getElementById("update-user-info");
 
+let createLi = (user) => {
+	let li = document.createELement("li");
+	li.innerText = `${user.firstName}`;
+	infoDisplay.appendChild(li);
+}
+
 viewInfo.addEventListener("click", (event)=>{
-	fetch(VIEW_INFO, {method: "GET" })
+	fetch(VIEW_INFO, { method: "GET" })
 		.then((response)=>{
 			return response.json();
 		})
 		.then((usersJson)=>{
 			//clearInfoDisplay();
 			for(let user in usersJson) {
+				console.log(usersJson[user]);
 				createLi(usersJson[user]);
 			}
 		})
@@ -79,12 +86,6 @@ updateUserInfo.addEventListener("submit", (event)=>{
 			clearDisplay
 		})*/
 })
-
-let createLi = (employee) => {
-	let li = document.createELement("li");
-	li.innerText = `${employee.firstName}`;
-	infoDisplay.appendChild(li);
-}
 
 let clearInfoDisplay = ()=>{
 	infoDisplay.innerHTML = "";
