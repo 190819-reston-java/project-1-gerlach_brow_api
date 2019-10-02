@@ -26,6 +26,10 @@ public class Transaction {
 		this.comment = comment;
 	}
 
+	public Transaction() {
+		super();
+	}
+	
 	public long getId() {
 		return id;
 	}

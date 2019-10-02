@@ -108,8 +108,8 @@ public class UserDAOImplPJDBC implements UserDAO {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 
-		String query = "UPDATE \"user\" SET first_name = ?, last_name = ?, is_admin = ?, email = ?, password = ?, "
-				+ "address = ?, address_2 = ?, phone_number = ?, position = ?;";
+		String query = "UPDATE \"user\" SET first_name = ?, last_name = ?, is_admin = ?, password = ?, "
+				+ "address = ?, address_2 = ?, phone_number = ?, position = ? WHERE id = ?;";
 
 		try {
 			conn = ConnectionUtil.getConnection();
@@ -117,12 +117,12 @@ public class UserDAOImplPJDBC implements UserDAO {
 			stmt.setString(1, u.getFirstName());
 			stmt.setString(2, u.getLastName());
 			stmt.setBoolean(3, u.isAdmin());
-			stmt.setString(4, u.getEmail());
-			stmt.setString(5, u.getPassword());
-			stmt.setString(6, u.getAddress());
-			stmt.setString(7, u.getAddress2());
-			stmt.setString(8, u.getPhoneNumber());
-			stmt.setString(9, u.getPosition());
+			stmt.setString(4, u.getPassword());
+			stmt.setString(5, u.getAddress());
+			stmt.setString(6, u.getAddress2());
+			stmt.setString(7, u.getPhoneNumber());
+			stmt.setString(8, u.getPosition());
+			stmt.setLong(9, u.getId());
 			stmt.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();

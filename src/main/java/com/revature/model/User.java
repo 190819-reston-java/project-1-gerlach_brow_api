@@ -30,8 +30,10 @@ public class User {
 		this.position = position;
 
 	}
-
 	
+	public User() {
+		super();
+	}
 
 	public long getId() {
 		return id;
@@ -155,7 +157,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", isAdmin=" + isAdmin
+		return "Welcome " + firstName + " Here is your information:%n"
+				+ "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", isAdmin=" + isAdmin
 				+ ", email=" + email + ", password=" + password + ", address=" + address + ", address2=" + address2
 				+ ", phoneNumber=" + phoneNumber + ", position=" + position + "]";
 	}
