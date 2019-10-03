@@ -12,12 +12,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.omg.CORBA.Environment;
 
 import com.revature.model.Transaction;
+import com.revature.model.User;
 import com.revature.utils.ConnectionUtil;
 import com.revature.utils.StreamCloser;
 
@@ -71,7 +74,7 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 		return trs;
 	}
 
-	public List<Transaction> getTrsResolved(long userId) {
+	public List<Transaction> getTrsApproved(long userId) {
 
 		List<Transaction> trs = new ArrayList<Transaction>();
 
@@ -79,7 +82,7 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 			String query = "SELECT * FROM Transactions WHERE user_id = ? AND status = ?;";
 			try (PreparedStatement stmt = conn.prepareStatement(query)) {
 				stmt.setLong(1, userId);
-				stmt.setString(2, "resolved");
+				stmt.setString(2, "approved");
 				if (stmt.execute()) {
 					try (ResultSet rs = stmt.getResultSet()) {
 						while (rs.next()) {
@@ -95,6 +98,29 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 		return trs;
 	}
 
+	public List<Transaction> getTrsDenied(long userId) {
+
+		List<Transaction> trs = new ArrayList<Transaction>();
+
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String query = "SELECT * FROM Transactions WHERE user_id = ? AND status = ?;";
+			try (PreparedStatement stmt = conn.prepareStatement(query)) {
+				stmt.setLong(1, userId);
+				stmt.setString(2, "denied");
+				if (stmt.execute()) {
+					try (ResultSet rs = stmt.getResultSet()) {
+						while (rs.next()) {
+							trs.add(createTransactionFromRS(rs));
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return trs;
+	}
 
 	public List<Transaction> getTransactions() {
 
@@ -126,6 +152,35 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 				rs.getString("comment"));
 	}
 
+	public boolean createTransaction(String comment, long id) {
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		Date date= new Date();
+		long time = date. getTime();
+		Timestamp ts = new Timestamp(time);
+		
+		String query = "INSERT INTO Transactions VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)";
+		
+		try {
+			conn = ConnectionUtil.getConnection();
+			stmt = conn.prepareStatement(query);
+			stmt.setLong(1, id);
+			stmt.setString(2, "pending");
+			stmt.setString(3, "");
+			stmt.setTimestamp(4, ts);
+			stmt.setString(5, "");
+			stmt.setString(6, comment);
+			stmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			StreamCloser.close(conn);
+			StreamCloser.close(stmt);
+		}
+		return true;
+	}
+	
 	public byte[] getImage(int id) {
 		byte[] byteImg = null;
 		Connection conn = null;
@@ -178,35 +233,35 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 		}
 	}
 
-	@Override
-	public boolean createTransaction(Transaction trs, long userid) {
-
-		Connection conn = null;
-		PreparedStatement stmt = null;
-
-		String query = "INSERT into Transaction VALUES (DEFAULT, ?, ?, ?, ?, ?, ?);";
-
-		try {
-			conn = ConnectionUtil.getConnection();
-			stmt = conn.prepareStatement(query);
-			stmt.setLong(1, trs.getUserId());
-			stmt.setString(2, trs.getStatus());
-			stmt.setString(3, trs.getManagerName());
-			stmt.setString(4, trs.getTransDate());
-			stmt.setString(5, trs.getImgUrl());
-			stmt.setString(6, trs.getComment());
-			stmt.execute();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		} finally {
-			StreamCloser.close(conn);
-			StreamCloser.close(stmt);
-		}
-
-		return true;
-
-	}
+//	@Override
+//	public boolean createTransaction(Transaction trs, long userid) {
+//
+//		Connection conn = null;
+//		PreparedStatement stmt = null;
+//
+//		String query = "INSERT into Transaction VALUES (DEFAULT, ?, ?, ?, ?, ?, ?);";
+//
+//		try {
+//			conn = ConnectionUtil.getConnection();
+//			stmt = conn.prepareStatement(query);
+//			stmt.setLong(1, trs.getUserId());
+//			stmt.setString(2, trs.getStatus());
+//			stmt.setString(3, trs.getManagerName());
+//			stmt.setString(4, trs.getTransDate());
+//			stmt.setString(5, trs.getImgUrl());
+//			stmt.setString(6, trs.getComment());
+//			stmt.execute();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			return false;
+//		} finally {
+//			StreamCloser.close(conn);
+//			StreamCloser.close(stmt);
+//		}
+//
+//		return true;
+//
+//	}
 
 	@Override
 	public boolean updateTransaction(Transaction trs) {
@@ -235,6 +290,7 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 
 		return true;
 	}
+
 
 //	@Override
 //	public byte[] fileToBytes(File file) {

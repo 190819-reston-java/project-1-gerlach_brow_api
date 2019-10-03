@@ -5,8 +5,26 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="/Project01/manager" method="GET">
-		<input type="button" name="Logout"> <input type="submit">
+	<h1>Welcome to the Manager Homepage!</h1>
+	
+	<button id="view-all-employees">View all employees</button>
+	<ul id="employee-display"></ul>
+	
+	<button id="view-all-pending-reimbursements">View all pending reimbursements</button>
+	<ul id="pending-display"></ul>
+	
+	<button id="view-all-resolved-reimbursements">View all resolved reimbursements</button>
+	<ul id="resolved-display"></ul>
+	
+	<form id="reimbursement-requests-by-employee">
+		<input type="text" name="userId" placeholder="Employee id">
 	</form>
+	
+	<form id="approve-deny-request">
+		<input type="text" name="trsId" placeholder="Transaction id">
+		<input type="text" name="status" placeholder="approve or deny">
+	</form>
+	
+	<script src="manager.js"></script>
 </body>
 </html>

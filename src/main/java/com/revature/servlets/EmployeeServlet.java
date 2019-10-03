@@ -62,20 +62,31 @@ public class EmployeeServlet extends HttpServlet {
 		
 		User user = userDAO.getUser(Long.valueOf(str));
 		User newUser = null;
-		for (String string : tokens) {
-			System.out.println(string);
-		}
+		
 		switch (req.getMethod()) {
 		case "GET":
 			if (tokens[0].contentEquals("view_info")) {
 				String jsonUser = om.writeValueAsString(user);
-				//System.out.println(jsonUser);
 				pw.write(jsonUser);
 			}
 			else if (tokens[0].contentEquals("view_res")) {
-				List<Transaction> trans = trs.getTrsResolved(user.getId());
-				String jsonTransactions = om.writeValueAsString(trans.toArray());
-				pw.write(jsonTransactions);
+				List<Transaction> trans1 = trs.getTrsApproved(user.getId());
+				List<Transaction> trans2 = trs.getTrsDenied(user.getId());
+				String json2 = om.writeValueAsString(trans2.toArray());
+				String newJson2 = json2.substring(1);
+				String json = om.writeValueAsString(trans1.toArray());
+				String newJson = json.substring(0, json.length() - 1);
+
+				if (trans2.isEmpty())
+					pw.write(json);
+				else if (trans1.isEmpty())
+					pw.write(json2);
+				else {
+					String jsonTransactions = newJson + "," + newJson2;
+					System.out.println(jsonTransactions);
+					pw.write(jsonTransactions);
+				}
+				
 			}
 			else if (tokens[0].contentEquals("view_pending")) {
 				List<Transaction> trans = trs.getTrsPending(user.getId());
@@ -85,7 +96,10 @@ public class EmployeeServlet extends HttpServlet {
 			break;
 		case "POST":
 			if (tokens[0].contentEquals("create_new")) {
-				break;
+				Transaction create = null;
+				create = om.readValue(req.getReader(), Transaction.class);
+				trs.createTransaction(create.getComment(), user.getId());
+				
 			}
 			else if (tokens[0].contentEquals("update_info")) {
 				newUser = om.readValue(req.getReader(), User.class);
@@ -102,12 +116,6 @@ public class EmployeeServlet extends HttpServlet {
 //				
 //				loginDispatcher.forward(req, resp);
 			break;
-		case "PUT":
-			user = om.readValue(req.getReader(), User.class);
-			if (tokens[0].contentEquals("update_info")) {
-				
-			}
-			break;
 		}
 	}
 
@@ -116,27 +124,5 @@ public class EmployeeServlet extends HttpServlet {
 		
 		doGet(req, resp);
 		
-//		Cookie cookies[] = req.getCookies();
-//		String str = null;
-//		UserDAO userDAO = new UserDAOImplPJDBC();
-//		PrintWriter pw = resp.getWriter();
-//		
-//		for(Cookie c : cookies)
-//		{
-//			if(c.getName().equals("userId")) {
-//				str = c.getValue();
-//			}
-//		}
-//		User old = userDAO.getUser(Long.valueOf(str));
-//		old.setFirstName(req.getParameter("firstName"));
-//		old.setLastName(req.getParameter("lastName"));
-//		old.setPassword(req.getParameter("password"));
-//		old.setAddress(req.getParameter("address"));
-//		old.setAddress2(req.getParameter("address2"));
-//		old.setPhoneNumber(req.getParameter("phoneNumber"));
-//		userDAO.updateUser(old);
-//		RequestDispatcher loginDispatcher = req.getRequestDispatcher("index.html");
-//		
-//		loginDispatcher.forward(req, resp);
 	}
 }

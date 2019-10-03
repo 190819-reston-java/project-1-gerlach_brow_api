@@ -13,7 +13,7 @@ let viewMyPendingReimbursements = document.getElementById("view-my-pending-reimb
 let pendingDisplay = document.getElementById("pending-display");
 let viewMyResolvedReimbursements = document.getElementById("view-my-resolved-reimbursements");
 let resolvedDisplay = document.getElementById("resolved-display");
-let submitReimbursement = document.getElementById("sumbit-reimbursement");
+let submitReimbursement = document.getElementById("submit-reimbursement");
 let updateUserInfo = document.getElementById("update-user-info");
 
 
@@ -101,17 +101,18 @@ viewMyResolvedReimbursements.addEventListener("click", (event) => {
         })
 });
 
-//submitReimbursement.addEventListener("submit", (event) => {
-//    event.preventDefault();
-//
-//    fetch(CREATE_NEW, { method: "POST" })
-//        .then((response) => {
-//            return response.json();
-//        })
-//        .then((playerJson)=>{
-//          clearSubDisplay();
-//        })
-//});
+submitReimbursement.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    fetch(CREATE_NEW, { method: "POST", body: JSON.stringify(formSubmission(submitReimbursement)) })
+        .then((response) => {
+            if (response.status >= 200 && response.status < 300) {
+                alert("Employee reimbursement submitted");
+            } else {
+                alert("Failed to submit reimbursement");
+            }
+        })
+});
 
 updateUserInfo.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -124,25 +125,28 @@ updateUserInfo.addEventListener("submit", (event) => {
                 alert("Failed to update employee info");
             }
         })
-        // .then((playerJson) => {
-        //     clearUpdateDisplay
-        // })
 });
+
+let formSubmission = (form) => {
+    let trs = {};
+    trs.comment = form.comment.value;
+    return trs;
+}
 
 let employeeFromForm = (form) => {
     let user = {};
     user.firstName = form.firstName.value;
-    user.lastName = 'a';
-    user.password = 'wasspord';
-    user.address = 'a';
-    user.address2 = 'a';
-    user.phoneNumber = 'a';
+    user.lastName = form.lastName.value;
+    user.password = form.password.value;
+    user.address = form.address.value;
+    user.address2 = form.address2.value;
+    user.phoneNumber = form.phoneNumber.value;
     return user;
 }
 
-/*let clearSubDisplay = ()=>{
-	subDisplay.innerHTML = "";
-}*/
+let clearSubDisplay = () => {
+    subDisplay.innerHTML = "";
+}
 
 let clearUpdateDisplay = () => {
     updateDisplay.innerHTML = "";

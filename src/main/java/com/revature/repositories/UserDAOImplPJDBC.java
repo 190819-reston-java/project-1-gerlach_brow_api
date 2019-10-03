@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.revature.model.Transaction;
 import com.revature.model.User;
 import com.revature.utils.ConnectionUtil;
 import com.revature.utils.StreamCloser;
@@ -39,27 +40,25 @@ public class UserDAOImplPJDBC implements UserDAO {
 
 	public List<User> getUsers() {
 
-		Statement statement = null;
-		ResultSet resultSet = null;
-		Connection conn = null;
-		List<User> users = new ArrayList<User>();
+		List<User> user = new ArrayList<User>();
 
-		try {
-			conn = ConnectionUtil.getConnection();
-			statement = conn.createStatement();
-			resultSet = statement.executeQuery("SELECT * FROM \"user\";");
-			while (resultSet.next()) {
-				users.add(createUserFromRS(resultSet));
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String query = "SELECT * FROM \"users\" WHERE is_admin = ?;";
+			try (PreparedStatement stmt = conn.prepareStatement(query)) {
+				stmt.setBoolean(1, true);
+				if (stmt.execute()) {
+					try (ResultSet rs = stmt.getResultSet()) {
+						while (rs.next()) {
+							user.add(createUserFromRS(rs));
+						}
+					}
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			StreamCloser.close(resultSet);
-			StreamCloser.close(statement);
-			StreamCloser.close(conn);
 		}
-
-		return users;
+		
+		return user;
 	}
 
 	private User createUserFromRS(ResultSet resultSet) throws SQLException {
