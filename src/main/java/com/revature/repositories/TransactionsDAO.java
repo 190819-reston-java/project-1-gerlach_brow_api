@@ -20,4 +20,6 @@ public interface TransactionsDAO {
 	
 	List<Transaction> getTransactions();
 	List<Transaction> getTransactions(long userId);
+	List<Transaction> getTrsPending(long userId);
+    List<Transaction> getTrsResolved(long userId);
 }

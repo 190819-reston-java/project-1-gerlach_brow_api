@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="ISO-8859-1">
-<title>EmployeePortal</title>
+    <meta charset="ISO-8859-1">
+    <title>EmployeePortal</title>
 </head>
+
 <body>
-	<h1>Welcome to your Employee Homepage</h1>
-	<h3></h3>
-	<button id="view-info">View your info</button>
-	<ul id="info-display">
-	</ul>
-	<button id="view-my-pending-reimbursements">View your pending
+    <h1>Welcome to your Employee Homepage</h1>
+    <button id="view-info">View your info</button>
+    <ul id="info-display">
+    </ul>
+    <button id="view-my-pending-reimbursements">View your pending
 		reimbursements</button>
-	<ul id="pending-display">	
-	</ul>
-	<button id="view-my-resolved-reimbursements">View your
+    <ul id="pending-display">
+    </ul>
+    <button id="view-my-resolved-reimbursements">View your
 		resolved reimbursements</button>
-	<ul id="resolved-display">
-	</ul>
-	<form id="submit-reimbursement" action="/Project01/employee" method="POST">
-		<input type="text" name="comment" placeholder="Reason for request">
-	</form>
-	<form id="update-user-info" action="/Project01/employee" method="POST">
-		<input type="text" name="firstName" placeholder="First Name">
-		<input type="text" name="lastName" placeholder="Last Name"> <input
-			type="text" name="password" placeholder="password"> <input
-			type="text" name="address" placeholder="1111 S One St"> <input
-			type="text" name="address2" placeholder="2222 S Two St"> <input
-			type="text" name="phoneNumber" placeholder="555-555-5555"> <input
-			type="submit">
-	</form>
-	<script src="employee.js"></script>
+    <ul id="resolved-display">
+    </ul>
+    <!-- <form id="submit-reimbursement" action="/Project01/employee" method="POST">
+        <input type="text" name="comment" placeholder="Reason for request">
+    </form> -->
+    <h3>Update Player</h3>
+    <form id="update-user-info">
+        <input type="text" name="firstName" placeholder="First Name">
+        <input type="text" name="lastName" placeholder="Last Name">
+        <input type="text" name="password" placeholder="password">
+        <input type="text" name="address" placeholder="1111 S One St">
+        <input type="text" name="address2" placeholder="2222 S Two St">
+        <input type="text" name="phoneNumber" placeholder="555-555-5555">
+        <input type="submit">
+    </form>
+    
+    <script src="employee.js"></script>
 </body>
+
 </html>

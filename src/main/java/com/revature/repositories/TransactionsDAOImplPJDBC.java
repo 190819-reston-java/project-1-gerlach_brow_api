@@ -25,9 +25,9 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 
 	@Override
 	public List<Transaction> getTransactions(long userId) {
-		
+
 		List<Transaction> trs = new ArrayList<Transaction>();
-		
+
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			String query = "SELECT * FROM Transactions WHERE user_id = ?;";
 			try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -47,61 +47,105 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 		return trs;
 	}
 
-	public List<Transaction> getTransactions() {
+	public List<Transaction> getTrsPending(long userId) {
 		
-	Statement stmt = null;
-	ResultSet rs = null;
-	Connection conn = null;
-	
-	List<Transaction> trs = new ArrayList<Transaction>();
-	
-	try{
-		conn = ConnectionUtil.getConnection();
-		stmt = conn.createStatement();
-		rs = stmt.executeQuery("SELECT * FROM Transaction;");
-		
-		while (rs.next()) {
-			trs.add(createTransactionFromRS(rs));
+		List<Transaction> trs = new ArrayList<Transaction>();
+
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String query = "SELECT * FROM Transactions WHERE user_id = ? AND status = ?;";
+			try (PreparedStatement stmt = conn.prepareStatement(query)) {
+				stmt.setLong(1, userId);
+				stmt.setString(2, "pending");
+				if (stmt.execute()) {
+					try (ResultSet rs = stmt.getResultSet()) {
+						while (rs.next()) {
+							trs.add(createTransactionFromRS(rs));
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-	}catch(SQLException e) {
-		e.printStackTrace();
+
+		return trs;
 	}
-		
+
+	public List<Transaction> getTrsResolved(long userId) {
+
+		List<Transaction> trs = new ArrayList<Transaction>();
+
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String query = "SELECT * FROM Transactions WHERE user_id = ? AND status = ?;";
+			try (PreparedStatement stmt = conn.prepareStatement(query)) {
+				stmt.setLong(1, userId);
+				stmt.setString(2, "resolved");
+				if (stmt.execute()) {
+					try (ResultSet rs = stmt.getResultSet()) {
+						while (rs.next()) {
+							trs.add(createTransactionFromRS(rs));
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return trs;
+	}
+
+
+	public List<Transaction> getTransactions() {
+
+		Statement stmt = null;
+		ResultSet rs = null;
+		Connection conn = null;
+
+		List<Transaction> trs = new ArrayList<Transaction>();
+
+		try {
+			conn = ConnectionUtil.getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM Transaction;");
+
+			while (rs.next()) {
+				trs.add(createTransactionFromRS(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		return trs;
 	}
 
 	private Transaction createTransactionFromRS(ResultSet rs) throws SQLException {
-		
-		return new Transaction(
-				rs.getLong("id"),
-				rs.getLong("user_id"),
-				rs.getString("status"),
-				rs.getString("manager_name"),
-				rs.getString("trans_date"),
-				rs.getString("imgUrl"),
+
+		return new Transaction(rs.getLong("id"), rs.getLong("user_id"), rs.getString("status"),
+				rs.getString("manager_name"), rs.getString("trans_date"), rs.getString("imgUrl"),
 				rs.getString("comment"));
 	}
-	
+
 	public byte[] getImage(int id) {
 		byte[] byteImg = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			conn = ConnectionUtil.getConnection();
 			stmt = conn.prepareStatement("SELECT * FROM Trimg WHERE id = ?;");
-			
+
 			stmt.setInt(1, id);
 			stmt.execute();
 			rs = stmt.getResultSet();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				byteImg = rs.getBytes(1);
 			}
-			
+
 			return byteImg;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -111,12 +155,12 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 			StreamCloser.close(rs);
 		}
 	}
-	
+
 	public void addImage(byte[] img, int id) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			conn = ConnectionUtil.getConnection();
 			String query = "INSERT INTO Trimg VALUES (DEFAULT, ?, ?);";
@@ -124,10 +168,10 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 			stmt.setLong(1, id);
 			stmt.setBytes(2, img);
 			stmt.execute();
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			StreamCloser.close(conn);
 			StreamCloser.close(stmt);
 			StreamCloser.close(rs);
@@ -136,12 +180,12 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 
 	@Override
 	public boolean createTransaction(Transaction trs, long userid) {
-		
+
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		
+
 		String query = "INSERT into Transaction VALUES (DEFAULT, ?, ?, ?, ?, ?, ?);";
-		
+
 		try {
 			conn = ConnectionUtil.getConnection();
 			stmt = conn.prepareStatement(query);
@@ -152,26 +196,26 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 			stmt.setString(5, trs.getImgUrl());
 			stmt.setString(6, trs.getComment());
 			stmt.execute();
-		}catch (SQLException e) { 
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
-		}finally {
+		} finally {
 			StreamCloser.close(conn);
 			StreamCloser.close(stmt);
 		}
-		
+
 		return true;
-		
+
 	}
 
 	@Override
 	public boolean updateTransaction(Transaction trs) {
-		
+
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		
+
 		String query = "UPDATE Transaction SET status = ?, managerName = ?, transDate = ?, imgUrl = ?, comment = ?;";
-		
+
 		try {
 			conn = ConnectionUtil.getConnection();
 			stmt = conn.prepareStatement(query);
@@ -184,11 +228,11 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
-		}finally {
+		} finally {
 			StreamCloser.close(conn);
 			StreamCloser.close(stmt);
 		}
-		
+
 		return true;
 	}
 
