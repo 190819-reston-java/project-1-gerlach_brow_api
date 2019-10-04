@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -23,10 +24,11 @@ public class FrontController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		uandTServices uts = new uandTServices(new UserDAOImplPJDBC());
-		
-		
-		resp.getWriter().write(uts.getUsers().toString());
+//		uandTServices uts = new uandTServices(new UserDAOImplPJDBC());
+//		
+//		
+//		resp.getWriter().write(uts.getUsers().toString());
+		doPost(req, resp);
 	}
 	
 	@Override
@@ -43,14 +45,16 @@ public class FrontController extends HttpServlet {
 			uandTServices uts = new uandTServices(new TransactionsDAOImplPJDBC());
 			Cookie cookie = new Cookie("userId", Long.toString(l));
 			resp.addCookie(cookie);
-			if(user.isAdmin() == false)
+			RequestDispatcher reqDis = req.getRequestDispatcher("Employee");
+			if(user.isAdmin() == false) {
 				resp.sendRedirect("employee.html");
+			//	reqDis.forward(req, resp);
+			}
 			else
 				resp.sendRedirect("manager.html");
 		}
 		else {
 			resp.sendRedirect("index.html");
-			resp.getWriter().write("Invalid username or password");
 		}
 	}
 }

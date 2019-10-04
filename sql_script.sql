@@ -14,7 +14,7 @@ CREATE TABLE "user" (
 );
 
 CREATE TABLE Transactions (
-	id serial PRIMARY KEY,
+	trans_id serial PRIMARY KEY,
 	user_id int REFERENCES "user"(id) NOT NULL,
 	status varchar(50),
 	manager_name varchar(50),
@@ -63,6 +63,6 @@ VALUES ('3', 'resolved', 'Leslie', NULL, 'Bought lunch for a client', current_ti
 INSERT INTO transactions (user_id, status, manager_name, imgUrl, "comment", trans_date)
 VALUES ('5', 'resolved', 'Jiggy', NULL, 'Donuts for morning meeting 08-12-2019', current_timestamp);
 
-SELECT * FROM Transactions;
+SELECT * FROM Transactions WHERE user_id = '1'AND status = 'pending';
 SELECT * FROM "user";
 select * from trimg;

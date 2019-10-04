@@ -16,6 +16,10 @@
 		<servlet-name>Manager</servlet-name>
 		<servlet-class>com.revature.servlets.ManagerServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Logout</servlet-name>
+		<servlet-class>com.revature.servlets.LogoutServlet</servlet-class>
+	</servlet>
 	
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
@@ -24,11 +28,18 @@
 
 	<servlet-mapping>
 		<servlet-name>Employee</servlet-name>
-		<url-pattern>/employee</url-pattern>
+		<url-pattern>/employee/*</url-pattern>
 	</servlet-mapping>
+	
 	
 	<servlet-mapping>
 		<servlet-name>Manager</servlet-name>
-		<url-pattern>/manager</url-pattern>
+		<url-pattern>/manager/*</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
