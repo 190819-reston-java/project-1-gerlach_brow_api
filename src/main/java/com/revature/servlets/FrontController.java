@@ -24,10 +24,11 @@ public class FrontController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		uandTServices uts = new uandTServices(new UserDAOImplPJDBC());
-		
-		
-		resp.getWriter().write(uts.getUsers().toString());
+//		uandTServices uts = new uandTServices(new UserDAOImplPJDBC());
+//		
+//		
+//		resp.getWriter().write(uts.getUsers().toString());
+		doPost(req, resp);
 	}
 	
 	@Override

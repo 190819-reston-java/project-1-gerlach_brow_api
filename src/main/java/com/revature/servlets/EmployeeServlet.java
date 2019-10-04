@@ -34,9 +34,22 @@ public class EmployeeServlet extends HttpServlet {
 		String[] splitURI = req.getRequestURI().split("/");
 		String[] tokens = Arrays.copyOfRange(splitURI, 3, splitURI.length);
 
+		if (req.getCookies() == null)
+			resp.sendRedirect("index.html");
 		for (String string : tokens) {
 			System.out.println(string);
 		}
+		Cookie cookies[] = req.getCookies();
+		String str = null;
+		UserDAO userDAO = new UserDAOImplPJDBC();
+		for(Cookie c : cookies)
+		{
+			if(c.getName().equals("userId")) {
+				str = c.getValue();
+			}
+		}
+		User user = userDAO.getUser(Long.valueOf(str));
+		checkValidUser(req, resp, user);
 		handleRequests(req, resp, tokens);
 		
 		}
@@ -60,7 +73,13 @@ public class EmployeeServlet extends HttpServlet {
 		
 		User user = userDAO.getUser(Long.valueOf(str));
 		User newUser = null;
-		
+		if (user.isAdmin() == true)
+		{
+			Cookie cookie = new Cookie("userId", "");
+	        cookie.setMaxAge(0);
+	        resp.addCookie(cookie);
+	        resp.sendRedirect("index.html");
+		}
 		switch (req.getMethod()) {
 		case "GET":
 			if (tokens[0].contentEquals("view_info")) {
@@ -114,6 +133,13 @@ public class EmployeeServlet extends HttpServlet {
 //				loginDispatcher.forward(req, resp);
 			break;
 		}
+	}
+	
+	private void checkValidUser(HttpServletRequest req, HttpServletResponse resp, User u) throws ServletException, IOException {
+		if (u.isAdmin() == true) {
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/index.html");
+			dispatcher.forward(req, resp);
+		}	
 	}
 
 	@Override

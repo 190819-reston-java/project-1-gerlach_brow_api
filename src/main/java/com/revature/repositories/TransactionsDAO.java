@@ -14,7 +14,7 @@ public interface TransactionsDAO {
 	byte [] getImage(int id);
 	
 	boolean createTransaction(String comment, long id);
-	boolean updateTransaction(Transaction trs);
+	boolean updateTransaction(Transaction trs, String string);
 	Transaction getTransaction(long trsId);
 	
 //	byte [] fileToBytes(File file);

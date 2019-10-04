@@ -356,21 +356,25 @@ public List<Transaction> getTrsAllPending() {
 //	}
 
 	@Override
-	public boolean updateTransaction(Transaction trs) {
+	public boolean updateTransaction(Transaction trs, String name) {
 
 		Connection conn = null;
 		PreparedStatement stmt = null;
+		Date date= new Date();
+		long time = date. getTime();
+		Timestamp ts = new Timestamp(time);
 
-		String query = "UPDATE Transaction SET status = ?, managerName = ?, transDate = ?, imgUrl = ?, comment = ?;";
 
+		String query = "UPDATE Transactions SET status = ?, manager_name = ?, trans_date = ?, imgUrl = ?, comment = ? WHERE id = ?;";
 		try {
 			conn = ConnectionUtil.getConnection();
 			stmt = conn.prepareStatement(query);
 			stmt.setString(1, trs.getStatus());
-			stmt.setString(2, trs.getManagerName());
-			stmt.setString(3, trs.getTransDate());
+			stmt.setString(2, name);
+			stmt.setTimestamp(3, Timestamp.valueOf(trs.getTransDate()));
 			stmt.setString(4, trs.getImgUrl());
 			stmt.setString(5, trs.getComment());
+			stmt.setLong(6, trs.getId());
 			stmt.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();

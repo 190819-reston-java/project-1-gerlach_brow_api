@@ -57,6 +57,13 @@ public class ManagerServlet extends HttpServlet{
 			}
 		}
 		User manager = userDAO.getUser(Long.valueOf(str));
+		if (manager.isAdmin() == false)
+		{
+			Cookie cookie = new Cookie("userId", "");
+	        cookie.setMaxAge(0);
+	        resp.addCookie(cookie);
+	        resp.sendRedirect("index.html");
+		}
 		System.out.println(req.getMethod());
 		switch(req.getMethod()) {
 		case "GET":
@@ -102,6 +109,8 @@ public class ManagerServlet extends HttpServlet{
 				Transaction newTrs = null;
 				newTrs = om.readValue(req.getReader(), Transaction.class);
 				Transaction trans = trs.getTransaction(newTrs.getId());
+				trans.setStatus(newTrs.getStatus());
+				trs.updateTransaction(trans, manager.getFirstName());
 				
 				System.out.println(trans.toString());
 			}
