@@ -26,6 +26,29 @@ import com.revature.utils.StreamCloser;
 
 public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 
+	public Transaction getTransaction(long trsId) {
+		
+		Transaction t = null;
+
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String query = "SELECT * FROM Transactions WHERE id = ?;";
+			try (PreparedStatement stmt = conn.prepareStatement(query)) {
+				stmt.setLong(1, trsId);
+				if (stmt.execute()) {
+					try (ResultSet rs = stmt.getResultSet()) {
+						if (rs.next()) {
+							t = createTransactionFromRS(rs);
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return t;
+	}
+	
 	@Override
 	public List<Transaction> getTransactions(long userId) {
 
@@ -74,6 +97,29 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 		return trs;
 	}
 
+public List<Transaction> getTrsAllPending() {
+		
+		List<Transaction> trs = new ArrayList<Transaction>();
+
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String query = "SELECT * FROM Transactions WHERE status = ?;";
+			try (PreparedStatement stmt = conn.prepareStatement(query)) {
+				stmt.setString(1, "pending");
+				if (stmt.execute()) {
+					try (ResultSet rs = stmt.getResultSet()) {
+						while (rs.next()) {
+							trs.add(createTransactionFromRS(rs));
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return trs;
+	}
+	
 	public List<Transaction> getTrsApproved(long userId) {
 
 		List<Transaction> trs = new ArrayList<Transaction>();
@@ -83,6 +129,52 @@ public class TransactionsDAOImplPJDBC implements TransactionsDAO {
 			try (PreparedStatement stmt = conn.prepareStatement(query)) {
 				stmt.setLong(1, userId);
 				stmt.setString(2, "approved");
+				if (stmt.execute()) {
+					try (ResultSet rs = stmt.getResultSet()) {
+						while (rs.next()) {
+							trs.add(createTransactionFromRS(rs));
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return trs;
+	}
+	
+	public List<Transaction> getTrsAllApproved() {
+
+		List<Transaction> trs = new ArrayList<Transaction>();
+
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String query = "SELECT * FROM Transactions WHERE status = ?;";
+			try (PreparedStatement stmt = conn.prepareStatement(query)) {
+				stmt.setString(1, "approved");
+				if (stmt.execute()) {
+					try (ResultSet rs = stmt.getResultSet()) {
+						while (rs.next()) {
+							trs.add(createTransactionFromRS(rs));
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return trs;
+	}
+
+	public List<Transaction> getTrsAllDenied() {
+
+		List<Transaction> trs = new ArrayList<Transaction>();
+
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String query = "SELECT * FROM Transactions WHERE status = ?;";
+			try (PreparedStatement stmt = conn.prepareStatement(query)) {
+				stmt.setString(1, "denied");
 				if (stmt.execute()) {
 					try (ResultSet rs = stmt.getResultSet()) {
 						while (rs.next()) {

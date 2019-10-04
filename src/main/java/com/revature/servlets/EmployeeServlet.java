@@ -23,8 +23,6 @@ import com.revature.service.uandTServices;
 
 public class EmployeeServlet extends HttpServlet {
 
-	private uandTServices services;
-	
 	@Override
 	public void init() throws ServletException {
 		super.init();
@@ -83,7 +81,6 @@ public class EmployeeServlet extends HttpServlet {
 					pw.write(json2);
 				else {
 					String jsonTransactions = newJson + "," + newJson2;
-					System.out.println(jsonTransactions);
 					pw.write(jsonTransactions);
 				}
 				

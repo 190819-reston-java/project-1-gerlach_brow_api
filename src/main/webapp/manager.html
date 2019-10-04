@@ -1,30 +1,38 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
 </head>
+
 <body>
-	<h1>Welcome to the Manager Homepage!</h1>
-	
-	<button id="view-all-employees">View all employees</button>
-	<ul id="employee-display"></ul>
-	
-	<button id="view-all-pending-reimbursements">View all pending reimbursements</button>
-	<ul id="pending-display"></ul>
-	
-	<button id="view-all-resolved-reimbursements">View all resolved reimbursements</button>
-	<ul id="resolved-display"></ul>
-	
-	<form id="reimbursement-requests-by-employee">
-		<input type="text" name="userId" placeholder="Employee id">
-	</form>
-	
-	<form id="approve-deny-request">
-		<input type="text" name="trsId" placeholder="Transaction id">
-		<input type="text" name="status" placeholder="approve or deny">
-	</form>
-	
-	<script src="manager.js"></script>
+    <h1>Welcome to the Manager Homepage!</h1>
+
+    <button id="view-all-employees">View all employees</button>
+    <ul id="employee-display"></ul>
+
+    <button id="view-all-pending-reimbursements">View all pending reimbursements</button>
+    <ul id="pending-display"></ul>
+
+    <button id="view-all-resolved-reimbursements">View all resolved reimbursements</button>
+    <ul id="resolved-display"></ul>
+
+    <h3>Insert Employee id below to see all reimbursement requests</h3>
+    <form id="reimbursement-requests-by-employee">
+        <input type="text" name="userId" placeholder="Employee id">
+        <input type="submit">
+    </form>
+    <ul id="view-by-employee-display"></ul>
+
+    <h3>Select Reimbursement id and input "approve" or "deny"</h3>
+    <form id="approve-deny-request">
+        <input type="number" name="trsId" placeholder="Transaction id">
+        <input type="text" name="status" placeholder="approve or deny">
+        <input type="submit">
+    </form>
+
+    <script src="manager.js"></script>
 </body>
+
 </html>

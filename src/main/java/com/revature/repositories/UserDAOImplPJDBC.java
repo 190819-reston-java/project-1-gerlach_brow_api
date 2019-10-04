@@ -43,9 +43,9 @@ public class UserDAOImplPJDBC implements UserDAO {
 		List<User> user = new ArrayList<User>();
 
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			String query = "SELECT * FROM \"users\" WHERE is_admin = ?;";
+			String query = "SELECT * FROM \"user\" WHERE is_admin = ?;";
 			try (PreparedStatement stmt = conn.prepareStatement(query)) {
-				stmt.setBoolean(1, true);
+				stmt.setBoolean(1, false);
 				if (stmt.execute()) {
 					try (ResultSet rs = stmt.getResultSet()) {
 						while (rs.next()) {

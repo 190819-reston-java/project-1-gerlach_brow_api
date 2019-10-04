@@ -15,6 +15,7 @@ public interface TransactionsDAO {
 	
 	boolean createTransaction(String comment, long id);
 	boolean updateTransaction(Transaction trs);
+	Transaction getTransaction(long trsId);
 	
 //	byte [] fileToBytes(File file);
 //	File bytesToFile(byte[] imgByte) throws FileNotFoundException;
@@ -24,4 +25,7 @@ public interface TransactionsDAO {
 	List<Transaction> getTrsPending(long userId);
     List<Transaction> getTrsApproved(long userId);
     List<Transaction> getTrsDenied(long userId);
+    List<Transaction> getTrsAllPending();
+    List<Transaction> getTrsAllApproved();
+	List<Transaction> getTrsAllDenied();
 }
