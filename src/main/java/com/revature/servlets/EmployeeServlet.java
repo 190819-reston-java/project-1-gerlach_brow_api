@@ -34,8 +34,12 @@ public class EmployeeServlet extends HttpServlet {
 		String[] splitURI = req.getRequestURI().split("/");
 		String[] tokens = Arrays.copyOfRange(splitURI, 3, splitURI.length);
 
-		if (req.getCookies() == null)
-			resp.sendRedirect("index.html");
+		if (req.getCookies() == null) {
+			Cookie cookie = new Cookie("userId", "");
+			cookie.setMaxAge(0);
+			resp.addCookie(cookie);
+	        resp.sendRedirect("/Project01/index.html");
+		}
 		for (String string : tokens) {
 			System.out.println(string);
 		}
