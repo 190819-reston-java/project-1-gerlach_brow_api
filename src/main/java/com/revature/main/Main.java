@@ -18,8 +18,12 @@ public class Main {
 //		System.out.println(userDAO.getUser("jelly@jelly.roll", "wasspord"));
 //		System.out.println(userDAO.getUsers());
 //		
+		TransactionsDAO trs = new TransactionsDAOImplPJDBC();
+		File file = new File("C:/Users/James/Desktop/bcf.png");
+		ImageToByteUtil img = new ImageToByteUtil();
+		byte[] array = img.ImageToByte(file);
+		trs.addImage(array, 1);
 		
-		//System.out.println(t.getTrsPending(3));
 		
 	}
 }
