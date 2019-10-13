@@ -21,6 +21,7 @@ import org.omg.CORBA.Environment;
 
 import com.revature.model.Transaction;
 import com.revature.model.User;
+import com.revature.model.imageTest;
 import com.revature.utils.ConnectionUtil;
 import com.revature.utils.StreamCloser;
 
@@ -273,35 +274,35 @@ public List<Transaction> getTrsAllPending() {
 		return true;
 	}
 	
-//	public byte[] getImage(int id) {
-//		byte[] byteImg = null;
-//		Connection conn = null;
-//		PreparedStatement stmt = null;
-//		ResultSet rs = null;
-//
-//		try {
-//			conn = ConnectionUtil.getConnection();
-//			stmt = conn.prepareStatement("SELECT * FROM Trimg WHERE id = ?;");
-//
-//			stmt.setInt(1, id);
-//			stmt.execute();
-//			rs = stmt.getResultSet();
-//
-//			while (rs.next()) {
-//				byteImg = rs.getBytes(1);
-//			}
-//
-//			return byteImg;
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null;
-//		} finally {
-//			StreamCloser.close(conn);
-//			StreamCloser.close(stmt);
-//			StreamCloser.close(rs);
-//		}
-//	}
+	public byte[] getImage(int id) {
+		byte[] byteImg = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = ConnectionUtil.getConnection();
+			stmt = conn.prepareStatement("SELECT * FROM Trimg WHERE id = ?;");
+
+			stmt.setInt(1, id);
+			stmt.execute();
+			rs = stmt.getResultSet();
+
+			while (rs.next()) {
+				byteImg = rs.getBytes(1);
+			}
+
+			return byteImg;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			StreamCloser.close(conn);
+			StreamCloser.close(stmt);
+			StreamCloser.close(rs);
+		}
+	}
 
 	public byte[] getImage1(long id) {
 		PreparedStatement stmt = null;
@@ -417,6 +418,10 @@ public List<Transaction> getTrsAllPending() {
 		}
 
 		return true;
+	}
+	
+	private imageTest createimageFromRS(ResultSet rs) throws SQLException {
+		return new imageTest(rs.getLong("id"), rs.getLong("user_id"), rs.getBytes("receipt_img"));
 	}
 
 

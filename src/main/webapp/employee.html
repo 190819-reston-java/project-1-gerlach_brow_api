@@ -1,44 +1,144 @@
 <!DOCTYPE html>
 <html>
+<title>HOME</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="w3bootstrap.css" type=" text/css ">
+
+<body class="w3-black">
+
+    <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center ">
+        <!-- Avatar image in top left corner -->
+        <img src="src='data:image/png;base64,[B@69ea3742 style=" width:100% ">
+        <a href="employee.html " class="w3-bar-item w3-button w3-padding-large w3-black ">
+            <i class="fa fa-home w3-xxlarge "></i>
+            <p>HOME</p>
+        </a>
+        <a href="userInfo.html " class="w3-bar-item w3-button w3-padding-large w3-hover-black ">
+            <i class="fa fa-user w3-xxlarge "></i>
+            <P>EDIT</P>
+        </a>
+        <a href="#about " class="w3-bar-item w3-button w3-padding-large w3-hover-black ">
+            <i class="fa fa-user w3-xxlarge "></i>
+            <p>SUBMIT REIM.</p>
+        </a>
+        <a href="#photos " class="w3-bar-item w3-button w3-padding-large w3-hover-black ">
+            <i class="fa fa-eye w3-xxlarge "></i>
+            <p>VIEW REIM.</p>
+        </a>
+        <a href="#contact " class="w3-bar-item w3-button w3-padding-large w3-hover-black ">
+            <i class="fa fa-envelope w3-xxlarge "></i>
+            <p>CONTACT</p>
+        </a>
+    </nav>
+
+    <div class="w3-top w3-hide-large w3-hide-medium " id="myNavbar ">
+        <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small ">
+            <a href="employee.html " class="w3-bar-item w3-button " style="width:20% !important ">HOME</a>
+            <a href="userInfo.html " class="w3-bar-item w3-button " style="width:20% !important ">EDIT</a>
+            <a href="#photos " class="w3-bar-item w3-button " style="width:20% !important ">SUBMIT REIM.</a>
+            <a href="#contact " class="w3-bar-item w3-button " style="width:20% !important ">VIEW REIM.</a>
+            <a href="#contact " class="w3-bar-item w3-button " style="width:20% !important ">CONTACT</a>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="w3-padding-large " id="main ">
+        <!-- Header/Home -->
+        <header class="w3-container w3-padding-32 w3-center w3-black " id="home ">
+            <h1 class="w3-jumbo "><span class="w3-hide-small ">Revature</span> Reimburstment App</h1>
+            <p>By Cort Gerlach & Roy Brow</p>
+        </header>
+        <!-- End Grid/Pricing tables -->
+    </div>
+    <div class="w3-content w3-justify w3-text-grey w3-padding-64 ">
+        <h2 class="w3-text-light-grey ">User Information</h2>
+        <hr style="width:100% " class="w3-opacity ">
+        <div class="w3-container w3-border w3-border-orange w3-card w3-black ">
+            <ul class="w3-ul w3-cell w3-card-4 " style="width: 50% ">
+                <li class="w3-padding-small ">First Name: </li>
+                <li class="w3-padding-small ">Last Name: </li>
+                <li class="w3-padding-small ">Email: </li>
+                <li class="w3-padding-small ">Address: </li>
+                <li class="w3-padding-small ">Second Address: </li>
+                <li class="w3-padding-small ">Phone Number: </li>
+                <li class="w3-padding-small ">Position: </li>
+            </ul>
+            <ul class="w3-ul w3-cell w3-card-4 " style="width: 50% " id="info-display ">
+            </ul>
+        </div>
+        <button id="view-info " class="w3-ripple w3-center w3-round-xxlarge w3-button w3-border w3-border-white w3-hover-orange w3-text-white " style="width: 20%; ">
+           <span class="glyphicon glyphicon-cloud-download "></span> LOAD
+        </button>
+    </div>
+
+
+
+    <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge w3-right-align ">
+        <!-- <i class="fa fa-facebook-official w3-hover-opacity "></i> -->
+        <!-- <i class="fa fa-instagram w3-hover-opacity "></i> -->
+        <!-- <i class="fa fa-snapchat w3-hover-opacity "></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity "></i>
+        <i class="fa fa-twitter w3-hover-opacity "></i>
+        <i class="fa fa-linkedin w3-hover-opacity "></i> -->
+        <p class="w3-medium ">Powered by <a href="https://www.w3schools.com/w3css/default.asp " target="_blank " class="w3-hover-text-orange ">w3.css</a></p>
+        <!-- End footer -->
+    </footer>
+
+    <!-- END PAGE CONTENT -->
+    </div>
+    <script src="employee.js "></script>
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html>
 
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="ISO-8859-1 ">
     <title>EmployeePortal</title>
 </head>
 
 <body>
-	<form name="Logout" action="/Project01/logout" method="GET">
-                   <button class="button">Logout</button>
+	<form name="Logout " action="/Project01/logout " method="GET ">
+                   <button class="button ">Logout</button>
    	</form>
     <h1>Welcome to your Employee Homepage!</h1>
-    <button id="view-info">View your info</button>
-    <ul id="info-display">
+    <button id="view-info ">View your info</button>
+    <ul id="info-display ">
     </ul>
-    <button id="view-my-pending-reimbursements">View your pending
+    <button id="view-my-pending-reimbursements ">View your pending
 		reimbursements</button>
-    <ul id="pending-display">
+    <ul id="pending-display ">
     </ul>
-    <button id="view-my-resolved-reimbursements">View your
+    <button id="view-my-resolved-reimbursements ">View your
 		resolved reimbursements</button>
-    <ul id="resolved-display">
+    <ul id="resolved-display ">
     </ul>
     <h3>Submit a reimbursement request</h3>
-    <form id="submit-reimbursement">
-        <input type="text" name="comment" placeholder="Reason for request">
-        <input type="submit">
+    <form id="submit-reimbursement ">
+        <input type="text " name="comment " placeholder="Reason for request ">
+        <input type="submit ">
     </form>
     <h3>Update Employee Info</h3>
-    <form id="update-user-info">
-        <input type="text" name="firstName" placeholder="First Name">
-        <input type="text" name="lastName" placeholder="Last Name">
-        <input type="text" name="password" placeholder="password">
-        <input type="text" name="address" placeholder="1111 S One St">
-        <input type="text" name="address2" placeholder="2222 S Two St">
-        <input type="text" name="phoneNumber" placeholder="555-555-5555">
-        <input type="submit">
+    <form id="update-user-info ">
+        <input type="text " name="firstName " placeholder="First Name ">
+        <input type="text " name="lastName " placeholder="Last Name ">
+        <input type="text " name="password " placeholder="password ">
+        <input type="text " name="address " placeholder="1111 S One St ">
+        <input type="text " name="address2 " placeholder="2222 S Two St ">
+        <input type="text " name="phoneNumber " placeholder="555-555-5555 ">
+        <input type="submit ">
     </form>
     
-    <script src="employee.js"></script>
+    <script src="employee.js "></script>
 </body>
 
-</html>
+</html> -->

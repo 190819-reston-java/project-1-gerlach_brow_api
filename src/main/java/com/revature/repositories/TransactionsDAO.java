@@ -11,7 +11,7 @@ import com.revature.model.User;
 public interface TransactionsDAO {
 
 	void addImage(byte [] img, int id);
-	byte [] getImage(int id);
+	byte [] getImage1(long id);
 	
 	boolean createTransaction(String comment, long id);
 	boolean updateTransaction(Transaction trs, String string);

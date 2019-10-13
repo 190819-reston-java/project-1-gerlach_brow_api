@@ -31,13 +31,14 @@ let clearResDisplay = () => {
 
 let createInfoLi = (user) => {
     let li = document.createElement("li");
-    li.innerText = `First Name: ${user.firstName}
-    	Last Name: ${user.lastName}
-    	Email: ${user.email}
-    	Address 1: ${user.address}
-    	Address 2: ${user.address2}
-    	Phone Number: ${user.phoneNumber}
-    	Position: ${user.position}`;
+    li.className = "w3-padding-small";
+    li.innerText = ` ${user.firstName}
+    	 ${user.lastName}
+    	 ${user.email}
+    	 ${user.address}
+    	 ${user.address2}
+    	 ${user.phoneNumber}
+    	 ${user.position}`;
     infoDisplay.append(li);
 }
 

@@ -63,6 +63,7 @@ VALUES ('3', 'resolved', 'Leslie', NULL, 'Bought lunch for a client', current_ti
 INSERT INTO transactions (user_id, status, manager_name, imgUrl, "comment", trans_date)
 VALUES ('5', 'resolved', 'Jiggy', NULL, 'Donuts for morning meeting 08-12-2019', current_timestamp);
 
-SELECT * FROM Transactions WHERE user_id = '1'AND status = 'pending';
+SELECT * FROM Transactions; 
 SELECT * FROM "user";
 select * from trimg;
+
