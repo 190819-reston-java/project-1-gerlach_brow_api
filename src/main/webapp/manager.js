@@ -122,21 +122,20 @@ viewByEmp.addEventListener("submit", (event) => {
         .then((response) => {
             console.log(response);
             if (response.status >= 200 && response.status < 300) {
-                System.out.println("howdy");
                 alert("Data won't post :(")
             } else
                 alert("bobo");
+            return response.json();
+        })
+        .then((trsJson) => {
+            clearViewByEmp();
+            console.log(trsJson);
+            for (let transaction in trsJson) {
+                createViewByEmpLi(trsJson[transaction]);
+                
+            }
         })
 });
-//        .then((trsJson) => {
-//            clearViewByEmp();
-//            console.log(trsJson);
-//            for (let transaction in trsJson) {
-//                createViewByEmpLi(trsJson[transaction]);
-//                
-//            }
-//        })
-//});
 
 let approveDenyForm = (form) => {
     let trs = {};

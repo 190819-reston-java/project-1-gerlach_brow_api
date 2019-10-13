@@ -273,36 +273,68 @@ public List<Transaction> getTrsAllPending() {
 		return true;
 	}
 	
-	public byte[] getImage(int id) {
-		byte[] byteImg = null;
-		Connection conn = null;
+//	public byte[] getImage(int id) {
+//		byte[] byteImg = null;
+//		Connection conn = null;
+//		PreparedStatement stmt = null;
+//		ResultSet rs = null;
+//
+//		try {
+//			conn = ConnectionUtil.getConnection();
+//			stmt = conn.prepareStatement("SELECT * FROM Trimg WHERE id = ?;");
+//
+//			stmt.setInt(1, id);
+//			stmt.execute();
+//			rs = stmt.getResultSet();
+//
+//			while (rs.next()) {
+//				byteImg = rs.getBytes(1);
+//			}
+//
+//			return byteImg;
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		} finally {
+//			StreamCloser.close(conn);
+//			StreamCloser.close(stmt);
+//			StreamCloser.close(rs);
+//		}
+//	}
+
+	public byte[] getImage1(long id) {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		Connection conn = null;
+
+		imageTest imgt = null;
 
 		try {
 			conn = ConnectionUtil.getConnection();
-			stmt = conn.prepareStatement("SELECT * FROM Trimg WHERE id = ?;");
-
-			stmt.setInt(1, id);
+			String query = "SELECT * FROM Trimg WHERE id = ?;";
+			stmt = conn.prepareStatement(query);
+			stmt.setLong(1, id);
 			stmt.execute();
 			rs = stmt.getResultSet();
 
-			while (rs.next()) {
-				byteImg = rs.getBytes(1);
+			
+			if (rs.next()) {
+				imgt = createimageFromRS(rs);
 			}
 
-			return byteImg;
 
-		} catch (Exception e) {
+			byte[] image = imgt.getImg();
+
+			return image;
+
+		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
-		} finally {
-			StreamCloser.close(conn);
-			StreamCloser.close(stmt);
-			StreamCloser.close(rs);
 		}
-	}
 
+		return null;
+	}
+	
 	public void addImage(byte[] img, int id) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
