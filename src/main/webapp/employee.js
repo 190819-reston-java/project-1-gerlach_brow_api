@@ -6,6 +6,7 @@ const UPDATE_INFO = `${BASE_URL}/update_info`;
 const VIEW_RES = `${BASE_URL}/view_res`;
 const VIEW_PENDING = `${BASE_URL}/view_pending`;
 const CREATE_NEW = `${BASE_URL}/create_new`;
+const VIEW_IMG = `${BASE_URL}/view_img`;
 
 let viewInfo = document.getElementById("view-info");
 let infoDisplay = document.getElementById("info-display");
@@ -15,7 +16,7 @@ let viewMyResolvedReimbursements = document.getElementById("view-my-resolved-rei
 let resolvedDisplay = document.getElementById("resolved-display");
 let submitReimbursement = document.getElementById("submit-reimbursement");
 let updateUserInfo = document.getElementById("update-user-info");
-
+let viewImg = document.getElementById("view-img");
 
 let clearInfoDisplay = () => {
     infoDisplay.innerHTML = "";
@@ -60,7 +61,20 @@ let createResolvedLi = (trs) => {
     	Receipt Img: ${trs.imgUrl}
     	Your Comment: ${trs.comment}`;
     resolvedDisplay.append(li);
-}
+};
+
+viewImg.addEventListener("click", (event) => {
+    fetch(VIEW_IMG, { method: "GET" })
+        .then((response) => {
+            return response.json();
+        })
+        .then((imgJson) => {
+            var img = document.createElement('img');
+            img.src = "data:image/png;base64, " + imgJson;
+            document.getElementById('img').appendChild(img);
+        })
+        .catch(console.error);
+});
 
 viewInfo.addEventListener("click", (event) => {
     fetch(VIEW_INFO, { method: "GET" })

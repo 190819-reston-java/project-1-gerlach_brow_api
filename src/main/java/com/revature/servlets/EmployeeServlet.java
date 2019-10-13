@@ -113,6 +113,10 @@ public class EmployeeServlet extends HttpServlet {
 				String jsonTransactions = om.writeValueAsString(trans.toArray());
 				pw.write(jsonTransactions);
 			}
+			else if (tokens[0].contentEquals("view_img")) {
+				String img = om.writeValueAsString(trs.getImage1(1));
+				pw.write(img);
+			}
 			break;
 		case "POST":
 			if (tokens[0].contentEquals("create_new")) {

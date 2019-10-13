@@ -22,7 +22,8 @@ public class Main {
 		File file = new File("C:/Users/James/Desktop/bcf.png");
 		ImageToByteUtil img = new ImageToByteUtil();
 		byte[] array = img.ImageToByte(file);
-		trs.addImage(array, 1);
+//		trs.addImage(array, 1);
+		System.out.println(trs.getImage1(1));
 		
 		
 	}
