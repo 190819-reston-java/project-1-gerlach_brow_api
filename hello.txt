@@ -1,3 +1,8 @@
+EIDOLONS:
+Teralyst
+vombalyst
+hydrolyst
+
 Riven mods to build:
 Azima
 braton
@@ -33,3 +38,4 @@ WARFRAMES
 -frost
 -wisp
 -wukong
+
